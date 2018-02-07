@@ -89,12 +89,12 @@ class ExtObj(object):
 
 class XMLParser(object):
 
-    def __init__(self, xmlpath):
+    def __init__(self, source):
         self.logger = logging.getLogger(__name__)
         self._retag = re.compile(r"(\{.*\})(.*)")
-        self.path = xmlpath
+        self.path = source
 
-        self.tree = ET.parse(xmlpath)
+        self.tree = ET.parse(source)
         self.root = self.tree.getroot()
         # FIXME: hard to get these xml namespaces with ElementTree, we may have to shift to lxml
         self.ns = {
