@@ -92,9 +92,12 @@ class XMLParser(object):
     def __init__(self, source):
         self.logger = logging.getLogger(__name__)
         self._retag = re.compile(r"(\{.*\})(.*)")
-        self.path = source
 
-        self.tree = ET.parse(source)
+        if type(source) == 'str':
+            self.tree = ET.fromstring(source)
+        else:
+            self.tree = ET.parse(source)
+
         self.root = self.tree.getroot()
         # FIXME: hard to get these xml namespaces with ElementTree, we may have to shift to lxml
         self.ns = {
